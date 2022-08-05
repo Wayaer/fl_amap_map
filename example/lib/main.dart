@@ -1,16 +1,20 @@
+import 'package:example/geo_fence_page.dart';
+import 'package:example/loaction_page.dart';
+import 'package:fl_amap_map/fl_amap_map.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_waya/flutter_waya.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // final bool key = await setAMapKey(
-  //     iosKey: 'e0e98395277890e48caa0c4bed423ead',
-  //     androidKey: '77418e726d0eefc0ac79a8619b5f4d97',
-  //     isAgree: true,
-  //     isContains: true,
-  //     isShow: true);
-  // debugPrint('高德地图ApiKey设置$key');
+  final bool key = await setAMapKey(
+      iosKey: 'e0e98395277890e48caa0c4bed423ead',
+      androidKey: '77418e726d0eefc0ac79a8619b5f4d97',
+      isAgree: true,
+      isContains: true,
+      isShow: true);
+  debugPrint('高德地图ApiKey设置$key');
   runApp(const ExtendedWidgetsApp(title: 'FlAMap', home: App()));
 }
 
@@ -23,7 +27,16 @@ class App extends StatelessWidget {
         appBar: AppBar(title: const Text('高德地图')),
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
-        children: []);
+        children: [
+          ElevatedText(
+              onPressed: () => showCupertinoModalPopup<dynamic>(
+                  context: context, builder: (_) => const AMapLocationPage()),
+              text: '高德定位功能'),
+          ElevatedText(
+              onPressed: () => showCupertinoModalPopup<dynamic>(
+                  context: context, builder: (_) => const AMapGeoFencePage()),
+              text: '高德地理围栏功能'),
+        ]);
   }
 }
 

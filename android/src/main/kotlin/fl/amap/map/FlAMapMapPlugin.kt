@@ -10,20 +10,23 @@ import io.flutter.plugin.common.MethodChannel.Result
 /** FlAMapMapPlugin */
 class FlAMapMapPlugin : FlutterPlugin, MethodCallHandler {
     private lateinit var channel: MethodChannel
-    private var methodCall: AMapLocationMethodCall? = null
+    private var location: AMapLocationMethodCall? = null
+    private var map: AMapMapMethodCall? = null
 
     override fun onAttachedToEngine(plugin: FlutterPlugin.FlutterPluginBinding) {
         channel = MethodChannel(plugin.binaryMessenger, "fl_amap_map")
-        methodCall = AMapLocationMethodCall(plugin.applicationContext, channel)
+        location = AMapLocationMethodCall(plugin.applicationContext, channel)
+        map = AMapMapMethodCall(plugin, channel)
         channel.setMethodCallHandler(this)
     }
 
     override fun onMethodCall(call: MethodCall, result: Result) {
-        methodCall?.onMethodCall(call, result)
+        location?.onMethodCall(call, result)
+        map?.onMethodCall(call, result)
     }
 
     override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {
         channel.setMethodCallHandler(null)
-        methodCall = null
+        map = null
     }
 }

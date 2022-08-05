@@ -2,7 +2,7 @@ package fl.amap.map
 
 import android.content.Context
 import android.view.Surface
-import com.amap.api.maps.TextureMapView
+import com.amap.api.maps.MapView
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
@@ -31,5 +31,6 @@ class AMapMapMethodCall(
         val surfaceTexture = textureEntry.surfaceTexture()
         surfaceTexture.setDefaultBufferSize(width, height)
         val surface = Surface(surfaceTexture)
+        MapView(context)
     }
 }

@@ -1,9 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
-part 'amap_geo_fence.dart';
+part 'src/amap_geo_fence.dart';
 
-part 'amap_location.dart';
+part 'src/amap_location.dart';
 
 const MethodChannel _channel = MethodChannel('fl_amap_map');
 

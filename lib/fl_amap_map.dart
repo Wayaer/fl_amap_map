@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 part 'src/amap_geo_fence.dart';
@@ -46,18 +47,35 @@ bool get _isAndroid => defaultTargetPlatform == TargetPlatform.android;
 bool get _isIOS => defaultTargetPlatform == TargetPlatform.iOS;
 
 class LatLong {
-  LatLong(this.latitude, this.longitude);
+  const LatLong(double latitude, double longitude)
+      : latitude =
+            (latitude < -90.0 ? -90.0 : (90.0 < latitude ? 90.0 : latitude)),
+        longitude = (longitude + 180.0) % 360.0 - 180.0;
 
-  LatLong.fromMap(Map<dynamic, dynamic> map) {
-    latitude = map['latitude'] as double?;
-    longitude = map['longitude'] as double?;
+  LatLong.fromMap(Map<dynamic, dynamic> map)
+      : latitude = map['latitude'] as double?,
+        longitude = map['longitude'] as double?;
+
+  /// 纬度
+  final double? latitude;
+
+  /// 经度
+  final double? longitude;
+
+  Map<String, double?> toMap() =>
+      {'latitude': latitude, 'longitude': longitude};
+
+  @override
+  String toString() => '$runtimeType($latitude, $longitude)';
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    return other is LatLong &&
+        other.latitude == latitude &&
+        other.longitude == longitude;
   }
 
-  double? latitude;
-  double? longitude;
-
-  Map<String, double?> toMap() => <String, double?>{
-        'latitude': latitude,
-        'longitude': longitude,
-      };
+  @override
+  int get hashCode => hashValues(latitude, longitude);
 }

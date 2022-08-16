@@ -18,6 +18,10 @@ class FlAMapMapPlugin : FlutterPlugin, MethodCallHandler {
         location = AMapLocationMethodCall(plugin.applicationContext, channel)
         map = AMapMapMethodCall(plugin, channel)
         channel.setMethodCallHandler(this)
+        plugin.platformViewRegistry.registerViewFactory(
+            "com.amap.flutter.map",
+            AMapPlatformViewFactory(plugin.binaryMessenger)
+        )
     }
 
     override fun onMethodCall(call: MethodCall, result: Result) {

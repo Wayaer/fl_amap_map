@@ -23,3 +23,5 @@ flutter:
         pluginClass: FlAMapMapPlugin
       ios:
         pluginClass: FlAMapMapPlugin
+  assets:
+    - res/
